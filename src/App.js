@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observable, autorun, action, runInAction, intercept, computed, when, reaction, observe } from 'mobx';
 import axios from './axios';
 import './mobx.scss';
-
+import Text from './Text';
 const time = observable.box(0);
 
 // @return 一个销毁函数
@@ -12,7 +12,7 @@ const time = observable.box(0);
 
 // reaction 更加细粒度的对某个值的变化做出反应，第一个参数返回的参数作为第二个参数的参数， 并且不像autorun那样，初始化的时候就会调用。reaction只有在值变化的时候才开始执行
 const disposer = reaction(() => time.get(), (data, reaction) => {
-  document.querySelector('.App').innerHTML = data;
+  // document.querySelector('.App').innerHTML = data;
   // 只执行一次
   // reaction.dispose();
 });
@@ -62,6 +62,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Text />
       </div>
     );
   }
