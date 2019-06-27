@@ -1,26 +1,42 @@
-import { observable, action, computed, observe, when } from 'mobx';
-import todo from './todo';
-
-class Time {
-  @observable count = 0;
-  @observable list = [];
-  @action add = () => {
-    this.list.push('11');
-  }
-
-  get len() {
-    return this.count;
-  }
-
+import { obserbable, reaction, computed, autorun } from 'mobx';
+class Store {
+  @obserbable list = [];
   constructor() {
-    when(
-      () => this.list.length,
-      (aaa) => {
-        console.log(aaa);
-      }
-    )
+    autorun(() => {
+      console.log(this.list.length);
+    });
   }
 
+  dispose = reaction(
+    () => this.list.length,
+    () => {
+      console.log('list length ---> reaction');
+    }
+  )
+  @computed get len() {
+    return this.list.length;
+  }
 }
 
-export default new Time();
+const store = new Store();
+
+store.list.push(111);
+console.log(store.len);
+
+store.dispose();
+
+store.list.push(222);
+
+
+import { observable, computed } from "mobx";
+class OrderLine {
+  @observable price = 0;
+  @observable amount = 1;
+
+  constructor(price) {
+    this.price = price;
+  }
+  @computed get total() {
+    return this.price * this.amount;
+  }
+}
