@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { observable, autorun, action, runInAction, intercept, computed, when, reaction, observe } from 'mobx';
 import axios from './axios';
-import './mobx.scss';
-import Text from './Text';
+import Game from './Game/Component/Game';
 const time = observable.box(0);
 
 // @return 一个销毁函数
@@ -62,7 +61,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Text />
+        <Game />
       </div>
     );
   }
