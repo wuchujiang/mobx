@@ -1,5 +1,4 @@
 import { observable, autorun, reaction, computed, action, configure, when, } from 'mobx';
-import { reset } from '_ansi-colors@3.2.4@ansi-colors';
 
 class Food {
   @observable list = [];
@@ -7,7 +6,7 @@ class Food {
   constructor(root) {
     // 初始化时随机生成5个食物
     this.root = root;
-    this.createFood(3);
+    this.createFood(30);
   }
 
   @action createFood(num) {
@@ -31,13 +30,6 @@ class Food {
     }
     this.list = array;
   }
-
-  dispose = reaction(() => this.list.length, (len) => {
-    if (len === 0) {
-      alert('success');
-      this.root.status = 'stop';
-    }
-  })
 
   @action setList(list) {
     this.list = list;

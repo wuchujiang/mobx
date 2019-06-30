@@ -12,7 +12,7 @@ class Game {
 
   @observable score = 0
 
-  @observable speed = 320;
+  @observable speed = 250;
 
   @observable status = 'stop';
 
@@ -35,7 +35,6 @@ class Game {
     this.direction = 'right';
   }
 
-
   // 拦截方向，不允许开倒车
   dispose = intercept(this, 'direction', (change) => {
     if (
@@ -50,7 +49,7 @@ class Game {
   });
 
   @action setSpeed(x) {
-    this.speed = 320 * (1 - x);
+    this.speed = 250 * (1 - x);
   }
 }
 

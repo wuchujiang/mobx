@@ -8,9 +8,7 @@ import './game.scss';
 
 @observer
 class SnackGame extends React.Component {
-
   componentDidMount() {
-    // 绑定键盘事件
     const ctx = this.canvas.getContext('2d');
     ctx.width = 800;
     ctx.height = 400;
@@ -28,10 +26,14 @@ class SnackGame extends React.Component {
       ctx.stroke();
     }
 
+    // 绑定键盘事件
     document.body.onkeydown = function (e) {
       // 有事件对象就用事件对象，没有就自己创建一个，兼容低版本浏览器
       var ev = e || window.event;
       let direction = '';
+      if (ev.keyCode < 37 || ev.keyCode > 40) {
+        return;
+      }
       switch (ev.keyCode) {
         case 38:
           direction = "top";
@@ -47,6 +49,9 @@ class SnackGame extends React.Component {
           break;
         default:
           return;
+      }
+      if (direction === game.direction) {
+        return;
       }
       game.setDirection(direction);
     };

@@ -43,10 +43,6 @@ class Snack {
     }
   });
 
-  @action add(point) {
-    this.list.push(point);
-  }
-
   @action setList(list) {
     this.list = list;
   }
