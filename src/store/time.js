@@ -1,42 +1,25 @@
-import { obserbable, reaction, computed, autorun } from 'mobx';
-class Store {
-  @obserbable list = [];
-  constructor() {
-    autorun(() => {
-      console.log(this.list.length);
-    });
+import { observable, reaction, computed, autorun, action, intercept } from 'mobx';
+
+export default class Time {
+  constructor(root) {
+    this.root = root;
+    console.log(this.list);
+
+  }
+  @observable count = 0
+
+  @observable list = [1, 2, 3]
+
+  @action plus() {
+    this.count++;
   }
 
-  dispose = reaction(
-    () => this.list.length,
-    () => {
-      console.log('list length ---> reaction');
-    }
-  )
-  @computed get len() {
-    return this.list.length;
-  }
-}
+  dispose = intercept(this, 'count', change => {
+    change.newValue = change.newValue * 2;
+    return change;
+  })
 
-const store = new Store();
-
-store.list.push(111);
-console.log(store.len);
-
-store.dispose();
-
-store.list.push(222);
-
-
-import { observable, computed } from "mobx";
-class OrderLine {
-  @observable price = 0;
-  @observable amount = 1;
-
-  constructor(price) {
-    this.price = price;
-  }
-  @computed get total() {
-    return this.price * this.amount;
+  @action subtract() {
+    this.count--;
   }
 }

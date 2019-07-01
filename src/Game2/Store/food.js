@@ -1,11 +1,11 @@
-import { observable, computed, reaction, action } from 'mobx';
+import { observable, computed, when, action } from 'mobx';
 
 class Food {
-  @observable list = [];
+  @observable list = [{ x: 0, y: 0 }];
 
   constructor(root) {
     this.root = root;
-    this.createFood(5);
+    this.createFood(30);
   }
 
   @action createFood(num) {
@@ -28,15 +28,13 @@ class Food {
   }
 
   @action setList(list) {
-    this.list = list
+    this.list = list;
   }
 
-  dispose = reaction(() => this.list.length, (len) => {
-    if (len === 0) {
-      this.root.status = 'over';
-      alert('success');
-    }
-  })
+  dispose = when(() => this.list.length === 0, () => {
+    this.root.setStatus('over');
+    alert('success');
+  });
 }
 
 export default Food;

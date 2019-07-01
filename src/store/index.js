@@ -1,7 +1,9 @@
-import time from './time';
-import todo from './todo';
+import Time from './time';
 
-export default {
-  time,
-  todo,
+class Store {
+  constructor() {
+    this.time = new Time(this);
+    // this.root = new Time(this);
+  }
 }
+export default new Store();

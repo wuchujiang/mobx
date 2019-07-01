@@ -1,6 +1,9 @@
-import { observable, computed, reaction, action, intercept } from 'mobx';
+import { observable, computed, reaction, action, intercept, configure } from 'mobx';
 import Snack from './snack';
 import Food from './food';
+
+
+configure({ enforceActions: 'observed' });
 
 class Game {
   constructor() {
@@ -18,6 +21,10 @@ class Game {
     this.direction = direction;
   }
 
+  @action.bound setStatus(status) {
+    this.status = status;
+  }
+
   dispose = intercept(this, 'direction', (change) => {
     if (
       (change.newValue === 'left' && this.direction === 'right') ||
@@ -28,7 +35,15 @@ class Game {
       return null;
     }
     return change;
-  })
+  });
+
+  @action restart() {
+    this.speed = 250;
+    this.status = 'stop';
+    this.direction = 'right';
+    this.food.createFood(30);
+    this.snack.reset();
+  }
 
 }
 

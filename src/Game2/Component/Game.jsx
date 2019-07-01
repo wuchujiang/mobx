@@ -57,14 +57,17 @@ class SnackGame extends React.Component {
       alert('game over');
       return false;
     }
-    return true
+    return true;
   }
 
   start = () => {
     const { direction, status } = game;
     const { x, y } = this.snackList[this.snackList.length - 1];
     let temp = {};
-
+    if (status === 'over') {
+      clearTimeout(this.timer);
+      return;
+    }
     switch (direction) {
       case 'right':
         temp = {
@@ -93,7 +96,8 @@ class SnackGame extends React.Component {
       default: ;
     }
 
-    if (status === 'over' || !this.checkStatus(temp)) {
+    if (!this.checkStatus(temp)) {
+      clearTimeout(this.timer);
       return;
     }
     const newSnackList = this.snackList.map((item, index, current) => index !== current.length - 1 ? current[index + 1] : temp);
@@ -105,9 +109,19 @@ class SnackGame extends React.Component {
 
   run = (e) => {
     e.preventDefault();
+    game.status = 'run';
     this.start();
   }
 
+  restart = () => {
+    clearTimeout(this.timer);
+    game.restart();
+  }
+
+  pause = () => {
+    clearTimeout(this.timer);
+    game.status = 'stop';
+  }
 
   render() {
     return (
