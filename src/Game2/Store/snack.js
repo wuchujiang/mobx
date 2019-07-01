@@ -1,4 +1,4 @@
-import { observable, computed, reaction, action, when } from 'mobx';
+import { observable, reaction, action, when } from 'mobx';
 
 const initData = [{ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 20, y: 0 }, { x: 30, y: 0 }];
 

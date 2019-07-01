@@ -1,4 +1,4 @@
-import { observable, computed, when, action } from 'mobx';
+import { observable, when, action } from 'mobx';
 
 class Food {
   @observable list = [{ x: 0, y: 0 }];

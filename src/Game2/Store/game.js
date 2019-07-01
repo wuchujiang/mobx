@@ -1,9 +1,8 @@
-import { observable, computed, reaction, action, intercept, configure } from 'mobx';
+import { observable, action, intercept, configure } from 'mobx';
 import Snack from './snack';
 import Food from './food';
 
-
-configure({ enforceActions: 'observed' });
+// configure({ enforceActions: 'observed' });
 
 class Game {
   constructor() {
@@ -21,7 +20,7 @@ class Game {
     this.direction = direction;
   }
 
-  @action.bound setStatus(status) {
+  @action setStatus(status) {
     this.status = status;
   }
 

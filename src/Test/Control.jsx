@@ -5,8 +5,9 @@ import { inject, observer } from 'mobx-react';
 @observer
 class Control extends Component {
 
-  add = () => {
-    this.props.time.plus();
+  add() {
+    const aa = this.props.time;
+    aa.plus();
   }
 
   less = () => {
@@ -15,7 +16,7 @@ class Control extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.add}>加+</button>
+        <button onClick={() => this.add()}>加+</button>
         <button onClick={this.less}>减-</button>
       </div>
     )

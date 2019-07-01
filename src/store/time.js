@@ -1,4 +1,4 @@
-import { observable, reaction, computed, autorun, action, intercept } from 'mobx';
+import { observable, reaction, computed, autorun, action, intercept, runInAction, flow } from 'mobx';
 
 export default class Time {
   constructor(root) {
@@ -13,6 +13,13 @@ export default class Time {
   @action plus() {
     this.count++;
   }
+
+
+  setTime = flow(function* () {
+
+  })
+
+
 
   dispose = intercept(this, 'count', change => {
     change.newValue = change.newValue * 2;
